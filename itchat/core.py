@@ -6,7 +6,7 @@ from . import config, storage, utils, log
 from .components import load_components
 
 class Core(object):
-    def __init__(self):
+    def __init__(self, mq_size=-1):
         ''' init is the only method defined in core.py
             alive is value showing whether core is running
                 - you should call logout method to change it
@@ -18,7 +18,7 @@ class Core(object):
                 - failing is failing
         '''
         self.alive, self.isLogging = False, False
-        self.storageClass = storage.Storage(self)
+        self.storageClass = storage.Storage(self, mq_size)
         self.memberList = self.storageClass.memberList
         self.mpList = self.storageClass.mpList
         self.chatroomList = self.storageClass.chatroomList

@@ -8,9 +8,20 @@ from .templates import AttributeDict
 
 logger = logging.getLogger('itchat')
 
+
 class Queue(queue.Queue):
     def put(self, message):
+        """
+        Make the queue kickable: 
+        Automatically remove olddest element after being full.
+        """
+        if self.full():
+            try:
+                self.get(block=False)
+            except queue.Empty:
+                pass
         queue.Queue.put(self, Message(message))
+
 
 class Message(AttributeDict):
     def download(self, fileName):

@@ -13,14 +13,14 @@ def contact_change(fn):
     return _contact_change
 
 class Storage(object):
-    def __init__(self, core):
+    def __init__(self, core, mq_size=-1):
         self.userName          = None
         self.nickName          = None
         self.updateLock        = Lock()
         self.memberList        = ContactList()
         self.mpList            = ContactList()
         self.chatroomList      = ContactList()
-        self.msgList           = Queue(-1)
+        self.msgList           = Queue(mq_size)
         self.lastInputUserName = None
         self.memberList.set_default_value(contactClass=User)
         self.memberList.core = core

@@ -5,11 +5,13 @@ from .log import set_logging
 
 __version__ = VERSION
 
-instanceList = []
+# Remove instanceList.
+# This will cause memory leak
+#instanceList = []
 
-def new_instance():
-    newInstance = Core()
-    instanceList.append(newInstance)
+def new_instance(mq_size=-1):
+    newInstance = Core(mq_size)
+    #instanceList.append(newInstance)
     return newInstance
 
 originInstance = new_instance()
