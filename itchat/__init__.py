@@ -2,13 +2,15 @@ from . import content
 from .core import Core
 from .config import VERSION
 from .log import set_logging
+from multiprocessing import Manager
 
 __version__ = VERSION
 
 # Remove instanceList.
 # This will cause memory leak
 #instanceList = []
-instanceTable = {}
+manager = Manager()
+instanceTable = manager.dict()
 
 def new_instance(instance_name, mq_size=-1):
     if instance_name in instanceTable:
