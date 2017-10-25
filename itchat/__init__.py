@@ -8,11 +8,15 @@ __version__ = VERSION
 # Remove instanceList.
 # This will cause memory leak
 #instanceList = []
+instanceTable = {}
 
-def new_instance(mq_size=-1):
-    newInstance = Core(mq_size)
-    #instanceList.append(newInstance)
-    return newInstance
+def new_instance(instance_name, mq_size=-1):
+    if instance_name in instanceTable:
+        return instanceTable[instance_name]
+    else:  
+        newInstance = Core(mq_size)
+        instanceTable[instance_name] = newInstance
+        return newInstance
 
 originInstance = new_instance()
 
