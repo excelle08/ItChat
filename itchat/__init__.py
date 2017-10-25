@@ -18,7 +18,7 @@ def new_instance(instance_name, mq_size=-1):
         instanceTable[instance_name] = newInstance
         return newInstance
 
-originInstance = new_instance()
+originInstance = new_instance('__original__')
 
 # I really want to use sys.modules[__name__] = originInstance
 # but it makes auto-fill a real mess, so forgive me for my following **
