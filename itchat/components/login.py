@@ -87,6 +87,7 @@ def login(self, enableCmdQR=False, picDir=None, qrCallback=None,
         if os.path.exists(picDir or config.DEFAULT_QR):
             os.remove(picDir or config.DEFAULT_QR)
         logger.info('Login successfully as %s' % self.storageClass.nickName)
+    self.exitCallback = exitCallback
     self.start_receiving(exitCallback)
     self.isLogging = False
 
@@ -360,6 +361,9 @@ def logout(self):
     del self.chatroomList[:]
     del self.memberList[:]
     del self.mpList[:]
+    if hasattr(self.exitCallback, '__call__'):
+        self.exitCallback()
+
     return ReturnValue({'BaseResponse': {
         'ErrMsg': 'logout successfully.',
         'Ret': 0, }})
