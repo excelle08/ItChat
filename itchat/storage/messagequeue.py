@@ -1,8 +1,5 @@
 import logging
-try:
-    import Queue as queue
-except ImportError:
-    import queue
+import multiprocessing.queues as queue
 
 from .templates import AttributeDict
 
