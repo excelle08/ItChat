@@ -76,6 +76,7 @@ def load_login_status(self, fileDir,
         if msgList:
             msgList = produce_msg(self, msgList)
             for msg in msgList: self.msgList.put(msg)
+        self.exitCallback = exitCallback
         self.start_receiving(exitCallback)
         logger.debug('loading login status succeeded.')
         if hasattr(loginCallback, '__call__'):
