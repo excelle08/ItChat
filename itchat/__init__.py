@@ -2,25 +2,18 @@ from . import content
 from .core import Core
 from .config import VERSION
 from .log import set_logging
-from multiprocessing import Manager
 
 __version__ = VERSION
 
 # Remove instanceList.
 # This will cause memory leak
 #instanceList = []
-manager = Manager()
-instanceTable = manager.dict()
 
-def new_instance(instance_name, mq_size=-1):
-    if instance_name in instanceTable:
-        return instanceTable[instance_name]
-    else:  
-        newInstance = Core(mq_size)
-        instanceTable[instance_name] = newInstance
-        return newInstance
+def new_instance(mq_size=-1):
+    newInstance = Core(mq_size)
+    return newInstance
 
-originInstance = new_instance('__original__')
+originInstance = new_instance()
 
 # I really want to use sys.modules[__name__] = originInstance
 # but it makes auto-fill a real mess, so forgive me for my following **
